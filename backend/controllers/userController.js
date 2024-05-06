@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const https = require("https");
 
 const SignUp = async (req, res) => {
   try {
@@ -66,13 +67,6 @@ const SignIn = async (req, res) => {
       { expiresIn: "12h" }
     );
 
-    const newrefreshToken = jwt.sign(
-      { username: username },
-      process.env.SECRET_REFRESH_TOKEN,
-      { expiresIn: "1d" }
-    );
-
-    findUser.refreshToken = newrefreshToken;
     findUser.accessToken = newaccessToken;
 
     await findUser.save();
@@ -80,7 +74,6 @@ const SignIn = async (req, res) => {
     return res.status(200).json({
       message: "Sign in successfully",
       accessToken: newaccessToken,
-      refreshToken: newrefreshToken,
     });
   } catch (err) {
     console.error("Error signing in:", err);
@@ -88,4 +81,23 @@ const SignIn = async (req, res) => {
   }
 };
 
-module.exports = { SignUp, SignIn };
+const getUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Required username" });
+    }
+    const findUser = await User.findById({
+      _id: id,
+    });
+    console.log(findUser);
+    if (!!!findUser) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    return res.status(200).json(findUser);
+  } catch (err) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = { SignUp, SignIn, getUser };

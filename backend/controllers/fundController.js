@@ -1,4 +1,6 @@
 const Fund = require("../models/fundModel");
+const User = require("../models/userModel");
+
 const getUrlFund = async (req, res) => {
   try {
     // const { unique_id } = req.params;
@@ -102,8 +104,115 @@ const getUrlFund = async (req, res) => {
   }
 };
 
+const getAllFund = async (req, res) => {
+  try {
+    const getFund = await Fund.find(
+      {},
+      { proj_id: 1, proj_name_th: 1, proj_name_en: 1 }
+    );
+    return res.status(200).json(getFund);
+  } catch (err) {
+    return res.status(500).json({ message: err });
+  }
+};
+
+const getdetailFund = async (req, res) => {
+  try {
+    const { proj_id } = req.params;
+    if (!proj_id) {
+      return res.status(400).json({ message: "required id" });
+    }
+
+    const finddetail = await Fund.find({ proj_id: proj_id });
+    return res.status(200).json(finddetail);
+  } catch (err) {
+    return res.status(500).json({ message: err });
+  }
+};
+
+const addFavFund = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { proj_id } = req.body;
+    if (!id || !proj_id) {
+      return res.status(400).json({ message: "required userid and proj_id" });
+    }
+
+    const findUser = await User.findById(
+      {
+        _id: id,
+      },
+      {
+        favouriteFund: 1,
+      }
+    ).exec();
+
+    const finddetail = await Fund.findOne({ proj_id: proj_id });
+    if (!!!finddetail) {
+      return res.status(400).json({ message: "Fund not found" });
+    }
+
+    const isAlreadyFav = findUser.favouriteFund.some(
+      (favFund) => favFund.proj_id === proj_id
+    );
+
+    // If the fund is already in the favouriteFund array, return a message
+    if (isAlreadyFav) {
+      return res
+        .status(400)
+        .json({ message: "Fund already added to favourites" });
+    }
+
+    // Add the new fund to the user's favouriteFund array
+    findUser.favouriteFund.push({
+      proj_id: proj_id,
+      url_factsheet: finddetail.url_factsheet,
+    });
+
+    await findUser.save();
+
+    return res.status(200).json(findUser);
+  } catch (err) {
+    return res.status(500).json({ message: err });
+  }
+};
+
+const removeFavFund = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { proj_id } = req.body;
+    if (!id || !proj_id) {
+      return res.status(400).json({ message: "required userid and proj_id" });
+    }
+
+    const removeFav = await User.findOne({
+      _id: id,
+      "favouriteFund.proj_id": proj_id,
+    });
+
+    if (!!!removeFav) {
+      return res.status(400).json({ message: "This fund is not in favourite" });
+    }
+
+    const rm = await User.updateOne(
+      { _id: id },
+      { $pull: { "favouriteFund.proj_id": { proj_id } } }
+    );
+
+    return res.status(200).json(removeFav);
+  } catch (err) {
+    return res.status(500).json({ message: err });
+  }
+};
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-module.exports = { getUrlFund };
+module.exports = {
+  getUrlFund,
+  getAllFund,
+  getdetailFund,
+  addFavFund,
+  removeFavFund,
+};

@@ -13,9 +13,17 @@ const userSchema = new mongoose.Schema({
   accessToken: {
     type: [String],
   },
-  refreshToken: {
-    type: [String],
-  },
+
+  favouriteFund: [
+    {
+      proj_id: {
+        type: String,
+      },
+      url_factsheet: {
+        type: String,
+      },
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
