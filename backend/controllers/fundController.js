@@ -106,10 +106,7 @@ const getUrlFund = async (req, res) => {
 
 const getAllFund = async (req, res) => {
   try {
-    const getFund = await Fund.find(
-      {},
-      { proj_id: 1, proj_name_th: 1, proj_name_en: 1 }
-    );
+    const getFund = await Fund.find({});
     return res.status(200).json(getFund);
   } catch (err) {
     return res.status(500).json({ message: err });
@@ -132,6 +129,7 @@ const getdetailFund = async (req, res) => {
 
 const addFavFund = async (req, res) => {
   try {
+    //id = userid
     const { id } = req.params;
     const { proj_id } = req.body;
     if (!id || !proj_id) {
@@ -171,7 +169,7 @@ const addFavFund = async (req, res) => {
 
     await findUser.save();
 
-    return res.status(200).json(findUser);
+    return res.status(200).json({ message: "Add favourite fund successfully" });
   } catch (err) {
     return res.status(500).json({ message: err });
   }
@@ -179,6 +177,8 @@ const addFavFund = async (req, res) => {
 
 const removeFavFund = async (req, res) => {
   try {
+    //id = userid
+
     const { id } = req.params;
     const { proj_id } = req.body;
     if (!id || !proj_id) {
@@ -196,11 +196,12 @@ const removeFavFund = async (req, res) => {
 
     const rm = await User.updateOne(
       { _id: id },
-      { $pull: { "favouriteFund.proj_id": { proj_id } } }
+      { $pull: { favouriteFund: { proj_id } } }
     );
 
-    return res.status(200).json(removeFav);
+    return res.status(200).json("Remove favourite fund successfully");
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ message: err });
   }
 };

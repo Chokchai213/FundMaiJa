@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
 const fundSchema = new mongoose.Schema({
-  unique_id: {
-    type: String,
-  },
   proj_name_th: {
     type: String,
   },
@@ -13,11 +10,14 @@ const fundSchema = new mongoose.Schema({
   proj_id: {
     type: String,
   },
-  proj_retail_type: {
+  proj_abbr_name: {
     type: String,
   },
-  last_upd_date: {
+  risk_spectrum: {
     type: String,
+  },
+  spec_code: {
+    type: Number,
   },
   url_factsheet: {
     type: String,
