@@ -13,7 +13,13 @@ const userSchema = new mongoose.Schema({
   accessToken: {
     type: [String],
   },
-
+  email: {
+    type: String,
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
   favouriteFund: [
     {
       proj_id: {
