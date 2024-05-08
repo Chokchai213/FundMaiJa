@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Main from "../views/Main.vue";
+import SignIn from "../views/SignIn.vue";
 const routerHistory = createWebHistory();
 
 const routes = [
@@ -10,7 +11,12 @@ const routes = [
   {
     path: "/:catchAll(.*)",
     redirect: "/",
-  }
+  },
+  {
+    path: "/signin",
+    name: "SignIn",
+    component: SignIn,
+  },
 ];
 
 const router = createRouter({
