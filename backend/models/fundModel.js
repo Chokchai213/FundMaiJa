@@ -13,6 +13,18 @@ const fundSchema = new mongoose.Schema({
   proj_abbr_name: {
     type: String,
   },
+  last_upd_date: {
+    type: Date,
+  },
+  policy_desc: {
+    type: String,
+  },
+  investment_policy_desc: {
+    type: String,
+  },
+  management_style: {
+    type: String,
+  },
   risk_spectrum: {
     type: String,
   },
