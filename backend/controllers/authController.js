@@ -43,7 +43,7 @@ const SignUp = async (req, res) => {
           userId: saveUser.id,
           token: crypto.randomBytes(16).toString("hex"),
         });
-
+        console.log("before IF");
         if (setToken && newUser) {
           console.log("sending...");
           sendingMail({

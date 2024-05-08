@@ -3,10 +3,7 @@
 
 
 <template>
-    <div>
-        hello world
-    </div>
-  </template>
+</template>
   
   <script>
   </script>
