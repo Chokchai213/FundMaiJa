@@ -1,6 +1,7 @@
 const Fund = require("../models/fundModel");
 const User = require("../models/userModel");
 
+//prepare data save in database
 const getUrlFund = async (req, res) => {
   try {
     // const { unique_id } = req.params;
@@ -104,6 +105,7 @@ const getUrlFund = async (req, res) => {
   }
 };
 
+// get all fund
 const getAllFund = async (req, res) => {
   try {
     const getFund = await Fund.find({});
@@ -113,6 +115,7 @@ const getAllFund = async (req, res) => {
   }
 };
 
+//get specific fund detail
 const getdetailFund = async (req, res) => {
   try {
     const { proj_id } = req.params;
@@ -127,6 +130,7 @@ const getdetailFund = async (req, res) => {
   }
 };
 
+//add specific fund to favourite fund
 const addFavFund = async (req, res) => {
   try {
     //id = userid
@@ -175,6 +179,7 @@ const addFavFund = async (req, res) => {
   }
 };
 
+//remove fund from favourite fund
 const removeFavFund = async (req, res) => {
   try {
     //id = userid
@@ -206,6 +211,7 @@ const removeFavFund = async (req, res) => {
   }
 };
 
+//time sleep
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

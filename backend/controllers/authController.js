@@ -4,6 +4,7 @@ const sendingMail = require("../config/mailConfig");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
+//sign up with username, password and email, then sending email to verify account
 const SignUp = async (req, res) => {
   try {
     const { username, password, email } = req.body;
@@ -65,6 +66,7 @@ const SignUp = async (req, res) => {
   }
 };
 
+// signin with username and password. (should verify your account before)
 const SignIn = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -108,6 +110,7 @@ const SignIn = async (req, res) => {
   }
 };
 
+//verify account
 const verifyEmail = async (req, res) => {
   try {
     const { token, id } = req.params;
@@ -147,6 +150,7 @@ const verifyEmail = async (req, res) => {
   }
 };
 
+//change user password
 const changePassword = async (req, res) => {
   try {
     const { username } = req.params;
