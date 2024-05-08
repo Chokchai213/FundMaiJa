@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema({
       proj_id: {
         type: String,
       },
+      proj_name_en: {
+        type: String,
+      },
+      risk_spectrum: {
+        type: String,
+      },
       url_factsheet: {
         type: String,
       },

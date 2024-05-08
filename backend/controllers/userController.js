@@ -76,19 +76,21 @@ const exportFavFund = async (req, res) => {
     findUser.favouriteFund.forEach((res) => {
       responses.push({
         proj_id: res.proj_id,
+        proj_name_en: res.proj_name_en,
+        risk_spectrum: res.risk_spectrum,
         url_factsheet: res.url_factsheet,
       });
     });
 
     const csvData = Papa.unparse(responses, {
       header: true,
-      fields: ["proj_id", "url_factsheet"],
+      fields: ["proj_id", "proj_name_en", "risk_spectrum", "url_factsheet"],
     });
 
     res.setHeader("Content-Type", "text/csv");
     res.setHeader(
       "Content-Disposition",
-      "attachment; filename=responseData.csv"
+      "attachment; filename=FavFundData.csv"
     );
 
     return res.status(200).send(csvData); // Send the CSV data as response

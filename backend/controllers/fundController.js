@@ -168,6 +168,8 @@ const addFavFund = async (req, res) => {
     // Add the new fund to the user's favouriteFund array
     findUser.favouriteFund.push({
       proj_id: proj_id,
+      proj_name_en: finddetail.proj_name_en,
+      risk_spectrum: finddetail.risk_spectrum,
       url_factsheet: finddetail.url_factsheet,
     });
 
@@ -204,7 +206,9 @@ const removeFavFund = async (req, res) => {
       { $pull: { favouriteFund: { proj_id } } }
     );
 
-    return res.status(200).json("Remove favourite fund successfully");
+    return res
+      .status(200)
+      .json({ message: "Remove favourite fund successfully" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: err });
