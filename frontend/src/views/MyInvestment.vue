@@ -21,7 +21,8 @@
             id="name"
             name="name"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500 mb-3"
-            disabled
+            v-model="this.username"
+            required
           />
         </div>
         <div>
@@ -33,7 +34,7 @@
             id="email"
             name="email"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500 mb-3"
-            disabled
+            v-model="this.email"
           />
         </div>
         <div class="flex justify-center space-x-4">
@@ -62,8 +63,9 @@ import { getCookie } from "../utils/CookieUtils";
 export default {
   data() {
     return {
-      username : 
-    };
+      username : getCookie("username"),
+      email : getCookie("email")
+    }
   },
   methods: {
     onClickEdit(){
