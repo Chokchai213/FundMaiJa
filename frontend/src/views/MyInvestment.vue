@@ -45,7 +45,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
         Favourite Fund
       </div>
       <div class="w-full overflow-x-scroll">
-        <table class="border-collapse border border-slate-400">
+        <table class="border-collapse border border-slate-400 w-full">
           <thead class="">
             <tr>
               <th

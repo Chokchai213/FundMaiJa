@@ -152,7 +152,7 @@
   <div>
     <div class="relative items-center justify-center">
       <!-- Header Text-->
-      <h1 class="text-center text-2xl font-bold p-2 bg-green-400 text-white">
+      <h1 class="text-center text-2xl font-bold p-2 bg-green-500 text-white">
         Today's news
       </h1>
       <!-- All Cards Container -->
@@ -201,7 +201,7 @@
             v-else-if="
               item.url !== null &&
               item.url !== undefined &&
-              item.url !== ''&&
+              item.url !== '' &&
               item.description !== null &&
               item.description !== undefined &&
               item.description !== ''
@@ -236,9 +236,9 @@
           <!-- Image unavailable and no description -->
           <div
             v-else-if="
-              item.title !== null &&
-              item.title !== undefined &&
-              item.title !== ''||
+              (item.title !== null &&
+                item.title !== undefined &&
+                item.title !== '') ||
               item.description == null ||
               item.description == undefined ||
               item.description == ''
@@ -256,9 +256,7 @@
               <h3 class="font-medium text-gray-600 text-lg my-2 uppercase">
                 {{ item.title }}
               </h3>
-              <p class="text-justify truncate text-white">
-                temp
-              </p>
+              <p class="text-justify truncate text-white">temp</p>
               <div class="mt-5">
                 <a
                   :href="item.url"
@@ -280,13 +278,11 @@
               <h3 class="font-medium text-gray-600 text-lg my-2 uppercase">
                 The content is available
               </h3>
-              <p class="text-justify">
-                The content is available
-              </p>
+              <p class="text-justify">The content is available</p>
               <div class="mt-5">
                 <a
                   :href="'#'"
-                  class=" rounded-full py-2 px-3 font-semibold hover:text-white bg-white text-white disabled-link"
+                  class="rounded-full py-2 px-3 font-semibold hover:text-white bg-white text-white disabled-link"
                   target="blank"
                   >Read More</a
                 >
