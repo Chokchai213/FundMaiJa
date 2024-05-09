@@ -1,6 +1,10 @@
 <template>
   <!-- Carousel -->
-  <div id="indicators-carousel" class="relative w-full" data-carousel="slide">
+  <div
+    id="indicators-carousel"
+    class="relative w-screen carousel-width"
+    data-carousel="slide"
+  >
     <!-- Carousel wrapper -->
     <div class="relative h-56 overflow-visible md:h-96">
       <!-- Carousel items -->
@@ -9,7 +13,7 @@
         :key="index"
         :class="{ 'carousel-item': true, active: activeIndex === index }"
       >
-        <!-- Available content -->
+        <!-- Image available -->
         <a
           v-if="
             item.urlToImage !== null &&
@@ -24,7 +28,7 @@
             class="absolute block w-full h-full object-fill"
           />
           <div
-            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent p-4"
+            class="absolute bottom-4 left-0 right-0 via-transparent to-transparent p-4"
           >
             <h2 class="text-white text-lg md:text-xl font-semibold">
               {{ item.title }}
@@ -34,7 +38,7 @@
             </p>
           </div>
         </a>
-        <!-- Unavailable content -->
+        <!-- Image unavailable -->
         <a
           v-else-if="
             item.url !== null &&
@@ -49,7 +53,7 @@
             class="absolute block w-full h-full object-fill"
           />
           <div
-            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent p-4"
+            class="absolute bottom-4 left-0 right-0 via-transparent to-transparent p-4"
           >
             <h2 class="text-black text-lg md:text-xl font-semibold">
               {{ item.title }}
@@ -59,6 +63,7 @@
             </p>
           </div>
         </a>
+        <!-- Content unavailable -->
         <div v-else>
           <img
             :src="'this-content-is-not-available.gif'"
@@ -69,7 +74,7 @@
     </div>
     <!-- Slider indicators -->
     <div
-      class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2"
+      class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-3 left-1/2"
     >
       <button
         v-for="(slide, index) in slides"
@@ -143,51 +148,99 @@
   </div>
 
   <!-- Card -->
-  <!-- <div
-    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-  >
-    <a href="#">
-      <img
-        class="rounded-t-lg"
-        src="https://via.placeholder.com/800x400?text=Second+Slide"
-        alt=""
-      />
-    </a>
-    <div class="p-5">
-      <a href="#">
-        <h5
-          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+  <!-- This is an example component -->
+  <div>
+    <div class="relative items-center justify-center">
+      <!-- Header Text-->
+      <h1 class="text-center text-2xl font-bold p-2 bg-green-400 text-white">
+        Today's news
+      </h1>
+      <!-- All Cards Container -->
+      <div class="container mx-auto my-auto overflow-x-auto whitespace-nowrap">
+        <!-- Card 1 -->
+        <div
+          v-for="item in news"
+          class="inline-block lg:m-4 shadow-md hover:shadow-lg hover:bg-gray-100 rounded-lg bg-white my-12 mx-8 w-80 h-80"
         >
-          Noteworthy technology acquisitions 2021
-        </h5>
-      </a>
-      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        Here are the biggest enterprise technology acquisitions of 2021 so far,
-        in reverse chronological order.
-      </p>
-      <a
-        href="#"
-        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Read more
-        <svg
-          class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 10"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M1 5h12m0 0L9 1m4 4L9 9"
+          <!-- Image available -->
+          <!-- Card Image -->
+          <div
+            v-if="
+              item.urlToImage !== null &&
+              item.urlToImage !== undefined &&
+              item.urlToImage !== ''
+            "
+            target="_blank"
+            :href="item.url"
+            class="w-full h-full bg-center bg-cover"
+          >
+            <img :src="item.urlToImage" class="overflow-hidden h-full w-full object-cover" />
+            <!-- Card Content -->
+            <div class="p-4 max-h-48 overflow-hidden">
+              <h3 class="font-medium text-gray-600 text-lg my-2 uppercase">
+                Climb the Mountains
+              </h3>
+              <p class="text-justify">
+                The be might what days revellers, which sought to a nor. Land
+                from to suits his some. Saw him counsel begun mother though but.
+                Ofttimes soils of since mighty pollution.
+              </p>
+              <div class="mt-5">
+                <a
+                  :href="item.url"
+                  class="hover:bg-gray-700 rounded-full py-2 px-3 font-semibold hover:text-white bg-gray-400 text-gray-100"
+                  target="blank"
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Image unavailable -->
+          <div
+            v-else-if="
+              item.url !== null &&
+              item.url !== undefined &&
+              item.urlToImage !== ''
+            "
+            target="_blank"
+            :href="item.url"
+          >
+            <img :src="'Image_not_available.png'" class="overflow-hidden" />
+            <!-- Card Content -->
+            <div class="p-4 max-h-48 overflow-hidden">
+              <h3 class="font-medium text-gray-600 text-lg my-2 uppercase">
+                Climb the Mountains
+              </h3>
+              <p class="text-justify">
+                The be might what days revellers, which sought to a nor. Land
+                from to suits his some. Saw him counsel begun mother though but.
+                Ofttimes soils of since mighty pollution.
+              </p>
+              <div class="mt-5">
+                <a
+                  :href="item.url"
+                  class="hover:bg-gray-700 rounded-full py-2 px-3 font-semibold hover:text-white bg-gray-400 text-gray-100"
+                  target="blank"
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Content anavailable -->
+          <div v-else>
+            <img
+            :src="'this-content-is-not-available.gif'"
+            class="overflow-hidden"
           />
-        </svg>
-      </a>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="mt-10 bottom-0 text-center">
+        <h4 class="text-sm font-semibold text-gray-600">&COPY; 2021 CORE-UI</h4>
+      </div>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <script>
@@ -233,6 +286,7 @@ export default {
         });
       })
       .finally(() => {
+        console.log(typeof this.news);
         console.log(this.news);
       });
   },
@@ -271,5 +325,9 @@ export default {
 .carousel-item.active {
   /* Styles for the active slide */
   display: block;
+}
+
+.carousel-width {
+  width: 60%;
 }
 </style>
