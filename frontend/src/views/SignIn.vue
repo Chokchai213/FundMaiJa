@@ -22,7 +22,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
           >
             Sign in to your account
           </h1>
-          <form class="space-y-4 md:space-y-6" action="#">
+          <form class="space-y-4 md:space-y-6" @submit.prevent="onSubmit">
             <div>
               <label
                 for="username"
@@ -103,7 +103,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
 
 <script>
 import axios from "axios";
-
+import { getCookie, setCookie } from "../utils/CookieUtils";
 export default {
   name: "SignIn",
   props: {},
@@ -117,7 +117,7 @@ export default {
   },
   methods: {
     signIn() {
-      if (!this.username || !this.password ) {
+      if (!this.username || !this.password) {
         return;
       }
       this.isLoading = true;
@@ -128,16 +128,22 @@ export default {
         })
         .then((res) => {
           this.isLoading = false;
-          console.log("res.data :: ", res.data);
-          const token = res.data.token;
-          sessionStorage.setItem("token", token);
+          const token = res.data.accessToken;
+          setCookie("accessToken",token,24);
+          this.$router.push('/mainfeed');
         })
         .catch((err) => {
           this.isLoading = false;
+          alert(err.response.data.message)
           console.log("err :: ", err);
         });
     },
   },
+  mounted(){
+      if(getCookie("accessToken")){
+        this.$router.replace("/mainfeed");
+      }
+    }
 };
 </script>
 

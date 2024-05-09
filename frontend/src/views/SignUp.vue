@@ -126,6 +126,11 @@ export default {
         });
     },
   },
+  mounted(){
+      if(getCookie("accessToken")){
+        this.$router.replace("/mainfeed");
+      }
+    }
 };
 
 

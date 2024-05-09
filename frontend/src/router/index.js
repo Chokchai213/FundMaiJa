@@ -4,12 +4,37 @@ import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import VerifyNewAccount from "../views/VerifyNewAccount.vue";
 import VerifyUserFromEmail from "../views/VerifyUserFromEmail.vue";
+import MyInvestment from "../views/MyInvestment.vue";
+import SearchFund from "../views/SearchFund.vue";
+import { getCookie } from "../utils/CookieUtils";
 const routerHistory = createWebHistory();
 
 const routes = [
   {
+    path: "/mainfeed",
+    component: Main,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/myinvestment",
+    component: MyInvestment,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/searchfund",
+    component: SearchFund,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  ,
+  {
     path: "/",
-    component: Main
+    redirect: "/signin",
   },
   {
     path: "/:catchAll(.*)",
@@ -23,23 +48,48 @@ const routes = [
   {
     path: "/signup",
     name: "SignUp",
-    component : SignUp,
+    component: SignUp,
   },
   {
-    path:"/verifyyouraccount/:email",
+    path: "/verifyyouraccount/:email",
     name: "VerifyNewAccount",
-    component : VerifyNewAccount
+    component: VerifyNewAccount,
   },
   {
-    path:"/verify-email/:userId/:token",
+    path: "/verify-email/:userId/:token",
     name: "VerifyUserFromEmail",
-    component : VerifyUserFromEmail
-  }
+    component: VerifyUserFromEmail,
+  },
 ];
 
 const router = createRouter({
   history: routerHistory,
   routes,
+});
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const token = getCookie("accessToken");
+    if (token) {
+      next();
+    } else {
+      next("/signin");
+    }
+  } else {
+    console.log("from.path :: ", from.path);
+    if (from.path === "/signin") {
+      console.log("reload");
+      window.location.reload();
+    }
+    next();
+  }
+});
+
+//if user got redirected from signin reload to remount
+router.afterEach((to, from, next) => {
+  if (from.path === "/signin" || from.path === "/signup") {
+    window.location.reload();
+  }
+  next();
 });
 
 export default router;
