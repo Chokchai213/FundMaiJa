@@ -4,12 +4,12 @@ const Papa = require("papaparse");
 // get specific user info
 const getUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!id) {
-      return res.status(400).json({ message: "Required id" });
+    const { username } = req.params;
+    if (!username) {
+      return res.status(400).json({ message: "Required username" });
     }
-    const findUser = await User.findById({
-      _id: id,
+    const findUser = await User.findOne({
+      username: username,
     });
     console.log(findUser);
     if (!!!findUser) {
