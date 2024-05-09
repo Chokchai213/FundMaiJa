@@ -12,15 +12,13 @@
           <div class="sm:ml-6 sm:block">
             <div class="flex space-x-4">
               <a
-              :href="'/myinvestment/' + this.username"
+              :href="'/myinvestment'"
                 class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                >My Investment</a
-              >
+                >My Investment</a>
               <a
                 href="/searchfund"
                 class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                >Search Fund</a
-              >
+                >Search Fund</a>
             </div>
           </div>
         </div>

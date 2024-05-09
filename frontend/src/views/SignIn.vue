@@ -131,23 +131,33 @@ export default {
           const token = res.data.accessToken;
           const username = res.data.username;
           const email = res.data.email;
-          setCookie("accessToken",token,12);
-          setCookie("username",username,12);
-          setCookie("email",email,12);
-          this.$router.push('/mainfeed');
+          setCookie("accessToken", token, 12);
+          setCookie("username", username, 12);
+          setCookie("email", email, 12);
+          axios
+            .post(`http://localhost:3000/user/getuser/${username}`)
+            .then((resGetUser) => {
+              setCookie("_id",resGetUser.data._id);
+              this.$router.push("/mainfeed");
+            })
+            .catch((errGetUser) => {
+              this.isLoading = false;
+              alert(errGetUser.response.data.message);
+              console.log("errGetUser :: ", errGetUser);
+            });
         })
         .catch((err) => {
           this.isLoading = false;
-          alert(err.response.data.message)
+          alert(err.response.data.message);
           console.log("err :: ", err);
         });
     },
   },
-  mounted(){
-      if(getCookie("accessToken")){
-        this.$router.replace("/mainfeed");
-      }
+  mounted() {
+    if (getCookie("accessToken")) {
+      this.$router.replace("/mainfeed");
     }
+  },
 };
 </script>
 

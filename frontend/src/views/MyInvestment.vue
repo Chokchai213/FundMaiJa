@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import OverlayLoading from "../components/OverlayLoading.vue";
+</script>
 
 <template>
   <div class="flex flex-col items-center justify-center mt-16">
@@ -22,7 +24,7 @@
             name="name"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500 mb-3"
             v-model="this.username"
-            required
+            required=""
           />
         </div>
         <div>
@@ -35,6 +37,7 @@
             name="email"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500 mb-3"
             v-model="this.email"
+            required=""
           />
         </div>
         <div class="flex justify-center space-x-4">
@@ -56,20 +59,43 @@
       </div>
     </div>
   </div>
+  <OverlayLoading :isLoading="isLoading" />
 </template>
 
 <script>
 import { getCookie } from "../utils/CookieUtils";
+import axios from "axios";
 export default {
   data() {
     return {
       username : getCookie("username"),
-      email : getCookie("email")
+      email : getCookie("email"),
+      isLoading : false
     }
   },
   methods: {
     onClickEdit(){
-        console.log("EditClicked")
+      this.isLoading = true;
+      axios
+        .patch(`http://localhost:3000/user/edituser`, {
+          username: this.username,
+          password: this.password,
+        })
+        .then((res) => {
+          this.isLoading = false;
+          const token = res.data.accessToken;
+          const username = res.data.username;
+          const email = res.data.email;
+          setCookie("accessToken",token,12);
+          setCookie("username",username,12);
+          setCookie("email",email,12);
+          this.$router.push('/mainfeed');
+        })
+        .catch((err) => {
+          this.isLoading = false;
+          alert(err.response.data.message)
+          console.log("err :: ", err);
+        });
     },
     onClickChangePassword(){
         this.$router.push('/changepassword');
