@@ -192,7 +192,7 @@
 
 <script>
 import axios from "axios";
-import { getCookie } from '../utils/CookieUtils';
+import { getCookie } from "../utils/CookieUtils";
 const apiKey = import.meta.env.VITE_NEWS_APIKEY;
 
 export default {
