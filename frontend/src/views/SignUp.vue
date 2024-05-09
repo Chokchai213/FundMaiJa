@@ -1,5 +1,5 @@
 <script setup>
-  import OverlayLoading from "../components/OverlayLoading.vue";
+import OverlayLoading from "../components/OverlayLoading.vue";
 </script>
 
 <template>
@@ -7,14 +7,6 @@
     <div
       class="flex flex-col items-center justify-center px-4 py-2 mx-auto md:h-screen lg:py-0"
     >
-      <a
-        href="#"
-        class="flex items-center mb-6 text-2xl font-semibold text-gray-900"
-      >
-        <a href="#" class="px-4 py-2">
-          <h1 class="font-bold select-none text-2xl">FUNDMAIJA</h1>
-        </a>
-      </a>
       <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
           <h1
@@ -82,7 +74,7 @@
         </div>
       </div>
     </div>
-    <OverlayLoading :isLoading="isLoading"/>
+    <OverlayLoading :isLoading="isLoading" />
   </section>
 </template>
 
@@ -98,12 +90,12 @@ export default {
       username: "",
       email: "",
       password: "",
-      isLoading: false
+      isLoading: false,
     };
   },
   methods: {
     signUp() {
-      if(!this.username||!this.password||!this.email){
+      if (!this.username || !this.password || !this.email) {
         return;
       }
       this.isLoading = true;
@@ -111,31 +103,26 @@ export default {
         .post("http://localhost:3000/auth/signup", {
           username: this.username,
           password: this.password,
-          email: this.email
-        },
-      )
+          email: this.email,
+        })
         .then((res) => {
           this.isLoading = false;
-          console.log('res.data :: ',res.data);
-          this.$router.replace("/verifyyouraccount/"+btoa(this.email));
+          console.log("res.data :: ", res.data);
+          this.$router.replace("/verifyyouraccount/" + btoa(this.email));
         })
         .catch((err) => {
           this.isLoading = false;
-          alert(err.response.data.message)
-          console.log('err :: ',err)
+          alert(err.response.data.message);
+          console.log("err :: ", err);
         });
     },
   },
-  mounted(){
-      if(getCookie("accessToken")){
-        this.$router.replace("/mainfeed");
-      }
+  mounted() {
+    if (getCookie("accessToken")) {
+      this.$router.replace("/mainfeed");
     }
+  },
 };
-
-
-
-
 </script>
 
 <style></style>
