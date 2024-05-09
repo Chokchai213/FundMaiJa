@@ -4,6 +4,7 @@ const sendingMail = require("../config/mailConfig");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
+//sign up with username, password and email, then sending email to verify account
 const SignUp = async (req, res) => {
   try {
     const { username, password, email } = req.body;
@@ -43,7 +44,7 @@ const SignUp = async (req, res) => {
           userId: saveUser.id,
           token: crypto.randomBytes(16).toString("hex"),
         });
-
+        console.log("before IF");
         if (setToken && newUser) {
           console.log("sending...");
           sendingMail({
@@ -65,6 +66,7 @@ const SignUp = async (req, res) => {
   }
 };
 
+// signin with username and password. (should verify your account before)
 const SignIn = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -101,6 +103,8 @@ const SignIn = async (req, res) => {
     return res.status(200).json({
       message: "Sign in successfully",
       accessToken: newaccessToken,
+      username: username,
+      email: findUser.email,
     });
   } catch (err) {
     console.error("Error signing in:", err);
@@ -108,6 +112,7 @@ const SignIn = async (req, res) => {
   }
 };
 
+//verify account
 const verifyEmail = async (req, res) => {
   try {
     const { token, id } = req.params;
@@ -147,6 +152,7 @@ const verifyEmail = async (req, res) => {
   }
 };
 
+//change user password
 const changePassword = async (req, res) => {
   try {
     const { username } = req.params;

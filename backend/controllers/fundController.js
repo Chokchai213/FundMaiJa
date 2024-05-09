@@ -1,6 +1,7 @@
 const Fund = require("../models/fundModel");
 const User = require("../models/userModel");
 
+//prepare data save in database
 const getUrlFund = async (req, res) => {
   try {
     // const { unique_id } = req.params;
@@ -104,6 +105,98 @@ const getUrlFund = async (req, res) => {
   }
 };
 
+const updateFundDetail = async (req, res) => {
+  try {
+    const checkArr = ["PN", "AN", "AM", "BH", "SM", "OT", "PM"];
+    const findProj = await Fund.find({});
+    const projArr = [];
+
+    findProj.forEach((fund) => {
+      projArr.push({ proj_id: fund.proj_id });
+    });
+
+    for (let i = 0; i < projArr.length; i++) {
+      const element = projArr[i];
+
+      try {
+        const proj_res = await fetch(
+          `https://api.sec.or.th/FundFactsheet/fund/${element.proj_id}/policy`,
+          {
+            method: "GET",
+            headers: {
+              "Cache-Control": "no-cache",
+              "Ocp-Apim-Subscription-Key": process.env.OCP_API,
+            },
+          }
+        );
+
+        const urlData = await proj_res.json();
+        let management_style = "";
+        const decodedString = Buffer.from(
+          urlData.investment_policy_desc,
+          "base64"
+        ).toString("utf-8");
+        const cleanedString = decodedString.replace(/<[^>]*>/g, "");
+        const investment_policy_desc = cleanedString.replace(/&nbsp;/g, "");
+
+        switch (urlData.management_style) {
+          case checkArr[0]:
+            management_style =
+              "กองทุนไทยมุ่งหวังให้ผลประกอบการเคลื่อนไหวตามกองทุนหลัก ส่วนกองทุนหลักมุ่งหวังให้ผลประกอบการเคลื่อนไหวตามดัชนีชี้วัด (passive management)";
+            break;
+          case checkArr[1]:
+            management_style =
+              "กองทุนไทยมุ่งหวังให้ผลประกอบการเคลื่อนไหวตามกองทุนหลัก ส่วนกองทุนหลักมุ่งหวังให้ผลประกอบการสูงกว่าดัชนีชี้วัด (active management)";
+            break;
+          case checkArr[2]:
+            management_style =
+              "มุ่งหวังให้ผลประกอบการสูงกว่าดัชนีชี้วัด (active management)";
+            break;
+          case checkArr[3]:
+            management_style = "มีกลยุทธ์การลงทุนครั้งเดียว (buy-and-hold)";
+            break;
+          case checkArr[4]:
+            management_style =
+              "มุ่งหวังให้ผลประกอบการเคลื่อนไหวตามดัชนีชี้วัด และในบางโอกาสอาจสร้างผลตอบแทนสูงกว่าดัชนีชี้วัด";
+            break;
+          case checkArr[5]:
+            management_style =
+              "มุ่งหวังให้ผลประกอบการเคลื่อนไหวตามดัชนีชี้วัด (passive management/index tracking)";
+            break;
+          default:
+            management_style = "อื่น ๆ";
+            break;
+        }
+        // console.log(urlData.last_upd_date);
+        // console.log(urlData.policy_desc);
+        const saveFund = await Fund.findOneAndUpdate(
+          {
+            proj_id: element.proj_id,
+          },
+          {
+            last_upd_date: urlData.last_upd_date,
+            policy_desc: urlData.policy_desc,
+            investment_policy_desc: investment_policy_desc,
+            management_style: management_style,
+          },
+          {
+            new: true,
+          }
+        );
+      } catch (err) {
+        console.error(
+          `Error fetching data for proj_id ${element.proj_id}: ${err.message}`
+        );
+        continue; // Skip to the next iteration of the loop
+      }
+    }
+
+    return res.status(200).json({ message: "Finish Update" });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+// get all fund
 const getAllFund = async (req, res) => {
   try {
     const getFund = await Fund.find({});
@@ -113,6 +206,7 @@ const getAllFund = async (req, res) => {
   }
 };
 
+//get specific fund detail
 const getdetailFund = async (req, res) => {
   try {
     const { proj_id } = req.params;
@@ -127,6 +221,7 @@ const getdetailFund = async (req, res) => {
   }
 };
 
+//add specific fund to favourite fund
 const addFavFund = async (req, res) => {
   try {
     //id = userid
@@ -164,6 +259,8 @@ const addFavFund = async (req, res) => {
     // Add the new fund to the user's favouriteFund array
     findUser.favouriteFund.push({
       proj_id: proj_id,
+      proj_name_en: finddetail.proj_name_en,
+      risk_spectrum: finddetail.risk_spectrum,
       url_factsheet: finddetail.url_factsheet,
     });
 
@@ -175,6 +272,7 @@ const addFavFund = async (req, res) => {
   }
 };
 
+//remove fund from favourite fund
 const removeFavFund = async (req, res) => {
   try {
     //id = userid
@@ -199,13 +297,16 @@ const removeFavFund = async (req, res) => {
       { $pull: { favouriteFund: { proj_id } } }
     );
 
-    return res.status(200).json("Remove favourite fund successfully");
+    return res
+      .status(200)
+      .json({ message: "Remove favourite fund successfully" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: err });
   }
 };
 
+//time sleep
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -216,4 +317,5 @@ module.exports = {
   getdetailFund,
   addFavFund,
   removeFavFund,
+  updateFundDetail,
 };
