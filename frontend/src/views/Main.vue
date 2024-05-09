@@ -25,7 +25,7 @@
         >
           <img
             :src="item.urlToImage"
-            class="absolute block w-full h-full object-fill"
+            class="absolute overflow-hidden h-full w-full object-cover"
           />
           <div
             class="absolute bottom-4 left-0 right-0 via-transparent to-transparent p-4"
@@ -49,8 +49,8 @@
           :href="item.url"
         >
           <img
-            :src="'Image_not_available.png'"
-            class="absolute block w-full h-full object-fill"
+            :src="'Image_not_available.jpg'"
+            class="absolute overflow-hidden h-full w-full object-cover"
           />
           <div
             class="absolute bottom-4 left-0 right-0 via-transparent to-transparent p-4"
@@ -67,7 +67,7 @@
         <div v-else>
           <img
             :src="'this-content-is-not-available.gif'"
-            class="absolute block w-full h-full object-fill"
+            class="absolute overflow-hidden h-full w-full object-cover"
           />
         </div>
       </div>
@@ -174,16 +174,17 @@
             :href="item.url"
             class="w-full h-full bg-center bg-cover"
           >
-            <img :src="item.urlToImage" class="overflow-hidden h-full w-full object-cover" />
+            <img
+              :src="item.urlToImage"
+              class="overflow-hidden h-full w-full object-cover"
+            />
             <!-- Card Content -->
             <div class="p-4 max-h-48 overflow-hidden">
               <h3 class="font-medium text-gray-600 text-lg my-2 uppercase">
-                Climb the Mountains
+                {{ item.title }}
               </h3>
-              <p class="text-justify">
-                The be might what days revellers, which sought to a nor. Land
-                from to suits his some. Saw him counsel begun mother though but.
-                Ofttimes soils of since mighty pollution.
+              <p class="text-justify truncate">
+                {{ item.description }}
               </p>
               <div class="mt-5">
                 <a
@@ -200,21 +201,26 @@
             v-else-if="
               item.url !== null &&
               item.url !== undefined &&
-              item.urlToImage !== ''
+              item.url !== ''&&
+              item.description !== null &&
+              item.description !== undefined &&
+              item.description !== ''
             "
             target="_blank"
             :href="item.url"
+            class="w-full h-full bg-center bg-cover"
           >
-            <img :src="'Image_not_available.png'" class="overflow-hidden" />
+            <img
+              :src="'Image_not_available.jpg'"
+              class="overflow-hidden h-full w-full object-cover"
+            />
             <!-- Card Content -->
             <div class="p-4 max-h-48 overflow-hidden">
               <h3 class="font-medium text-gray-600 text-lg my-2 uppercase">
-                Climb the Mountains
+                {{ item.title }}
               </h3>
-              <p class="text-justify">
-                The be might what days revellers, which sought to a nor. Land
-                from to suits his some. Saw him counsel begun mother though but.
-                Ofttimes soils of since mighty pollution.
+              <p class="text-justify truncate">
+                {{ item.description }}
               </p>
               <div class="mt-5">
                 <a
@@ -226,12 +232,66 @@
               </div>
             </div>
           </div>
-          <!-- Content anavailable -->
-          <div v-else>
+
+          <!-- Image unavailable and no description -->
+          <div
+            v-else-if="
+              item.title !== null &&
+              item.title !== undefined &&
+              item.title !== ''||
+              item.description == null ||
+              item.description == undefined ||
+              item.description == ''
+            "
+            target="_blank"
+            :href="item.url"
+            class="w-full h-full bg-center bg-cover"
+          >
             <img
-            :src="'this-content-is-not-available.gif'"
-            class="overflow-hidden"
-          />
+              :src="'Image_not_available.jpg'"
+              class="overflow-hidden h-full w-full object-cover"
+            />
+            <!-- Card Content -->
+            <div class="p-4 max-h-48 overflow-hidden">
+              <h3 class="font-medium text-gray-600 text-lg my-2 uppercase">
+                {{ item.title }}
+              </h3>
+              <p class="text-justify truncate text-white">
+                temp
+              </p>
+              <div class="mt-5">
+                <a
+                  :href="item.url"
+                  class="hover:bg-gray-700 rounded-full py-2 px-3 font-semibold hover:text-white bg-gray-400 text-gray-100"
+                  target="blank"
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Content unavailable -->
+          <div v-else class="w-full h-full bg-center bg-cover">
+            <img
+              :src="'this-content-is-not-available.jpg'"
+              class="overflow-hidden h-full w-full object-cover"
+            />
+            <div class="p-4 max-h-48 overflow-hidden">
+              <h3 class="font-medium text-gray-600 text-lg my-2 uppercase">
+                The content is available
+              </h3>
+              <p class="text-justify">
+                The content is available
+              </p>
+              <div class="mt-5">
+                <a
+                  :href="'#'"
+                  class=" rounded-full py-2 px-3 font-semibold hover:text-white bg-white text-white disabled-link"
+                  target="blank"
+                  >Read More</a
+                >
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -286,7 +346,7 @@ export default {
         });
       })
       .finally(() => {
-        console.log(typeof this.news);
+        this.news.shift();
         console.log(this.news);
       });
   },
@@ -302,7 +362,6 @@ export default {
       this.activeIndex = index;
       // Restart the interval for automatic slide switching
       this.interval = setInterval(() => this.nextSlide(), this.slideInterval);
-      console.log(this.activeIndex);
     },
     prevSlide() {
       this.goToSlide(
