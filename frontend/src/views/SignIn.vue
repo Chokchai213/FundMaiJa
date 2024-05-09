@@ -129,7 +129,7 @@ export default {
         .then((res) => {
           this.isLoading = false;
           const token = res.data.accessToken;
-          setCookie("accessToken",token,24);
+          setCookie("accessToken",token,12);
           this.$router.push('/mainfeed');
         })
         .catch((err) => {

@@ -6,6 +6,7 @@ import VerifyNewAccount from "../views/VerifyNewAccount.vue";
 import VerifyUserFromEmail from "../views/VerifyUserFromEmail.vue";
 import MyInvestment from "../views/MyInvestment.vue";
 import SearchFund from "../views/SearchFund.vue";
+import ChangePasswordForm from "../views/ChangePasswordForm.vue";
 import { getCookie } from "../utils/CookieUtils";
 const routerHistory = createWebHistory();
 
@@ -20,6 +21,13 @@ const routes = [
   {
     path: "/myinvestment",
     component: MyInvestment,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/changepassword",
+    component: ChangePasswordForm,
     meta: {
       requiresAuth: true,
     },
