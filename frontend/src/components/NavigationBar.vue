@@ -86,7 +86,6 @@ export default {
     if (getCookie("accessToken")) {
       this.isLogin = true;
     }
-    console.log("this.isLogin :: ", this.isLogin);
   },
 };
 </script>

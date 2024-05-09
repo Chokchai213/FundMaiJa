@@ -92,7 +92,7 @@ router.beforeEach((to, from, next) => {
 
 //if user got redirected from signin reload to remount
 router.afterEach((to, from, next) => {
-  if (from.path === "/signin" || from.path === "/signup") {
+  if (from.path === "/signin" || from.path === "/signup" || from.path === "/searchfund") {
     window.location.reload();
   }
 });

@@ -29,7 +29,7 @@ const fundSchema = new mongoose.Schema({
     type: String,
   },
   spec_code: {
-    type: Number,
+    type: String,
   },
   url_factsheet: {
     type: String,

@@ -16,7 +16,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use("/auth", require("./routes/authRoute"));
-
 app.use("/user", require("./routes/userRoute"));
 app.use("/fund", require("./routes/fundRoute"));
 
