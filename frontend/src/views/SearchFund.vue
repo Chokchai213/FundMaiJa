@@ -80,10 +80,12 @@ import OverlayLoading from "../components/OverlayLoading.vue";
   </div>
   <!-- favFund -->
   <div class="flex flex-col items-center justify-center mt-16" v-if="!isLoading">
-    <div class="bg-gray-50 p-8 rounded-lg shadow-md w-full md:w-3/4 overflow-x-auto">
+    <div class="bg-gray-50 p-8 rounded-lg shadow-md h-[400px] w-full md:w-3/4 overflow-x-auto">
       <div class="w-full h-4/8  text-black font-bold px-2 py-1 rounded-lg mb-4 text-center text-xl">
-        Favourite Fund
+        Query Fund
       </div>
+      <div class="w-full overflow-x-scroll">
+
       <table class="w-full border-collapse border border-slate-400">
         <thead>
           <tr>
@@ -142,6 +144,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </div>
   <OverlayLoading :isLoading="isLoading" />

@@ -63,75 +63,77 @@ import OverlayLoading from "../components/OverlayLoading.vue";
   <!-- favFund -->
   <div class="flex flex-col items-center justify-center mt-16">
     <div
-      class="bg-gray-50 p-8 rounded-lg shadow-md w-full md:w-3/4 overflow-x-auto"
+      class="bg-gray-50 p-8 rounded-lg shadow-md w-full h-[400px] sm:w-3/4 overflow-auto"
     >
       <div
         class="w-full h-4/8 text-black font-bold px-2 py-1 rounded-lg mb-4 text-center text-xl"
       >
         Favourite Fund
       </div>
-      <table class="w-full border-collapse border border-slate-400">
-        <thead>
-          <tr>
-            <th
-              class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider"
-            >
-              Project ID
-            </th>
-            <th
-              class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider"
-            >
-              Project Name
-            </th>
-            <th
-              class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider"
-            >
-              Risk Spectrum
-            </th>
-            <th
-              class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider"
-            >
-              Factsheet URL
-            </th>
-            <th
-              class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider"
-            >
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Loop through each favorite fund -->
-          <tr v-for="(fav, key) in Users.favouriteFund" :key="key">
-            <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
-              {{ fav.proj_id }}
-            </td>
-            <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
-              {{ fav.proj_name_en }}
-            </td>
-            <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
-              {{ fav.risk_spectrum }}
-            </td>
-            <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
-              <a
-                :href="fav.url_factsheet"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-blue-500 hover:underline"
-                >{{ fav.url_factsheet }}</a
+      <div class="w-full overflow-x-scroll">
+        <table class="border-collapse border border-slate-400">
+          <thead class="">
+            <tr>
+              <th
+                class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider"
               >
-            </td>
-            <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
-              <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                v-on:click="onClickDeleteFavFund(fav.proj_id)"
+                Project ID
+              </th>
+              <th
+                class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider"
               >
-                Remove
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                Project Name
+              </th>
+              <th
+                class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider"
+              >
+                Risk Spectrum
+              </th>
+              <th
+                class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider"
+              >
+                Factsheet URL
+              </th>
+              <th
+                class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider"
+              >
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Loop through each favorite fund -->
+            <tr v-for="(fav, key) in Users.favouriteFund" :key="key">
+              <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
+                {{ fav.proj_id }}
+              </td>
+              <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
+                {{ fav.proj_name_en }}
+              </td>
+              <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
+                {{ fav.risk_spectrum }}
+              </td>
+              <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
+                <a
+                  :href="fav.url_factsheet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-blue-500 hover:underline"
+                  >{{ fav.url_factsheet }}</a
+                >
+              </td>
+              <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
+                <button
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  v-on:click="onClickDeleteFavFund(fav.proj_id)"
+                >
+                  Remove
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <br />
       <center>
         <button
