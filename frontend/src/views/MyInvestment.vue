@@ -128,6 +128,15 @@ import OverlayLoading from "../components/OverlayLoading.vue";
           </tr>
         </tbody>
       </table>
+      <br />
+      <center>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          v-on:click="onClickExportToCSV()"
+        >
+          Export Favourite Fund to CSV
+        </button>
+      </center>
     </div>
   </div>
 
@@ -187,6 +196,43 @@ export default {
         })
         .finally(() => {
           window.location.reload();
+        });
+    },
+    onClickExportToCSV() {
+      axios
+        .get(
+          `http://localhost:3000/user/export-file/${getCookie("_id")}`,
+          null,
+          {
+            responseType: "blob",
+          }
+        )
+        .then((res) => {
+          const blob = new Blob([res.data], {
+            type: res.headers["content-type"],
+          });
+
+          // Create a temporary URL for the blob
+          const url = window.URL.createObjectURL(blob);
+
+          // Create a temporary anchor element
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "FavFundData.csv"); // Set the filename for the download
+
+          // Programmatically trigger a click event on the anchor element
+          document.body.appendChild(link);
+          link.click();
+
+          // Clean up by revoking the temporary URL and removing the temporary anchor element
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(link);
+
+          alert("Downloaded CSV file");
+        })
+        .catch((err) => {
+          this.isLoading = false;
+          alert(err.response.data.message);
         });
     },
   },
