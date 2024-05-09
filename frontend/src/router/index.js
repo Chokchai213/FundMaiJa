@@ -19,7 +19,7 @@ const routes = [
     },
   },
   {
-    path: "/myinvestment",
+    path: "/myinvestment/:username",
     component: MyInvestment,
     meta: {
       requiresAuth: true,
