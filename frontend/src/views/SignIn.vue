@@ -129,7 +129,11 @@ export default {
         .then((res) => {
           this.isLoading = false;
           const token = res.data.accessToken;
+          const username = res.data.username;
+          const email = res.data.email;
           setCookie("accessToken",token,12);
+          setCookie("username",username,12);
+          setCookie("email",email,12);
           this.$router.push('/mainfeed');
         })
         .catch((err) => {

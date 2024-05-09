@@ -58,9 +58,11 @@
 </template>
 
 <script>
+import { getCookie } from "../utils/CookieUtils";
 export default {
   data() {
     return {
+      username : 
     };
   },
   methods: {
@@ -72,7 +74,7 @@ export default {
     }
   },
   mounted() {
-    
+
   },
 };
 </script>
