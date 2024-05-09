@@ -59,6 +59,78 @@ import OverlayLoading from "../components/OverlayLoading.vue";
       </div>
     </div>
   </div>
+
+  <!-- favFund -->
+  <div class="flex flex-col items-center justify-center mt-16">
+    <div
+      class="bg-gray-50 p-8 rounded-lg shadow-md w-full md:w-3/4 overflow-x-auto"
+    >
+      <div
+        class="w-full h-4/8 bg-green-500 text-black font-bold px-2 py-1 rounded-lg mb-4 text-center"
+      >
+        Favourite Fund
+      </div>
+      <table class="w-full" id="customers">
+        <thead>
+          <tr>
+            <th
+              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Project ID
+            </th>
+            <th
+              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Project Name
+            </th>
+            <th
+              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Risk Spectrum
+            </th>
+            <th
+              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Factsheet URL
+            </th>
+            <th
+              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop through each favorite fund -->
+          <tr v-for="(fav, key) in Users.favouriteFund" :key="key">
+            <td class="px-6 py-4 whitespace-no-wrap">{{ fav.proj_id }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">{{ fav.proj_name_en }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap">
+              {{ fav.risk_spectrum }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap">
+              <a
+                :href="fav.url_factsheet"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-blue-500 hover:underline"
+                >{{ fav.url_factsheet }}</a
+              >
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                v-on:click="onClickDeleteFavFund(fav.proj_id)"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <OverlayLoading :isLoading="isLoading" />
 </template>
 
@@ -68,13 +140,14 @@ import axios from "axios";
 export default {
   data() {
     return {
-      username : getCookie("username"),
-      email : getCookie("email"),
-      isLoading : false
-    }
+      username: getCookie("username"),
+      email: getCookie("email"),
+      Users: [],
+      isLoading: false,
+    };
   },
   methods: {
-    onClickEdit(){
+    onClickEdit() {
       this.isLoading = true;
       axios
         .patch(`http://localhost:3000/user/edituser/${getCookie("_id")}`, {
@@ -82,25 +155,82 @@ export default {
           email: this.email,
         })
         .then(() => {
-          console.log('then')
+          console.log("then");
           this.isLoading = false;
-          setCookie("username",this.username,12);
-          setCookie("email",this.email,12);
+          setCookie("username", this.username, 12);
+          setCookie("email", this.email, 12);
           alert("Edit Successfully");
         })
         .catch((err) => {
           this.isLoading = false;
-          alert(err.response.data.message)
+          alert(err.response.data.message);
         });
     },
-    onClickChangePassword(){
-        this.$router.push('/changepassword');
-    }
+    onClickChangePassword() {
+      this.$router.push("/changepassword");
+    },
+    onClickDeleteFavFund(proj_id) {
+      console.log(getCookie("_id"));
+      console.log(proj_id);
+      axios
+        .delete(
+          `http://localhost:3000/fund/removefavfund/${getCookie("_id")}`,
+          {
+            data: { proj_id: proj_id },
+          }
+        )
+        .then((res) => {
+          console.log("Delete fav fund id: " + proj_id);
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        })
+        .finally(() => {
+          window.location.reload();
+        });
+    },
   },
   mounted() {
-
+    axios
+      .post(`http://localhost:3000/user/getuser/${this.username}`)
+      .then((res) => {
+        // console.log(res.data);
+        this.Users = res.data;
+        console.log(this.Users);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+      });
   },
 };
 </script>
 
-<style></style>
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td,
+#customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+  background-color: #ddd;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: white;
+}
+</style>
