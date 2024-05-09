@@ -5,6 +5,7 @@ import SignUp from "../views/SignUp.vue";
 import VerifyNewAccount from "../views/VerifyNewAccount.vue";
 import VerifyUserFromEmail from "../views/VerifyUserFromEmail.vue";
 import MyInvestment from "../views/MyInvestment.vue";
+import FundDetail from "../views/FundDetail.vue";
 import SearchFund from "../views/SearchFund.vue";
 import ChangePasswordForm from "../views/ChangePasswordForm.vue";
 import { getCookie } from "../utils/CookieUtils";
@@ -67,6 +68,13 @@ const routes = [
     path: "/verify-email/:userId/:token",
     name: "VerifyUserFromEmail",
     component: VerifyUserFromEmail,
+  },
+  {
+    path: "/fund-detail/:proj_id",
+    component: FundDetail,
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 
