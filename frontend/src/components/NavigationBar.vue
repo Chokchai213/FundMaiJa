@@ -13,50 +13,42 @@
           </div>
           <div class="sm:ml-6 sm:block">
             <div class="flex space-x-4">
-              <a
-                :href="'/myinvestment'"
-                class="text-white rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                >My Investment</a
-              >
-              <a
-                href="/searchfund"
-                class="text-white rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                >Search Fund</a
-              >
+              <!--Button for My Investment Page-->
+              <a :href="'/myinvestment'"
+                class="text-white rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">My
+                Investment</a>
+              <!--Button for My Investment Page-->
+              <a href="/searchfund"
+                class="text-white rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Search
+                Fund</a>
             </div>
           </div>
         </div>
         <div class="relative flex items-center" v-if="isLogin">
           <div class="mr-3">
-            <img
-              class="h-8 w-8 rounded-full border border-white border-2"
+            <img class="h-8 w-8 rounded-full border border-white border-2"
               src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS11c2VyLXJvdW5kIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjUiLz48cGF0aCBkPSJNMjAgMjFhOCA4IDAgMCAwLTE2IDAiLz48L3N2Zz4="
-              alt=""
-            />
+              alt="" />
           </div>
           <div>
             <div
-              class="bg-white text-black rounded-3xl px-3 py-2 text-sm font-medium hover:bg-white hover:text-black rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
-            >
+              class="bg-white text-black rounded-3xl px-3 py-2 text-sm font-medium hover:bg-white hover:text-black rounded-md px-3 py-2 text-sm font-medium cursor-pointer">
               {{ this.username }}
             </div>
           </div>
           <div class="px-1">
             <div
               class="bg-white text-black rounded-3xl px-3 py-2 text-sm font-medium hover:bg-white hover:text-black rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
-              @click="onClickSignOut"
-            >
+              @click="onClickSignOut">
               Sign out
             </div>
           </div>
         </div>
         <div class="relative flex items-center" v-else>
           <div class="mr-3">
-            <button
-              type="submit"
+            <button type="submit"
               class="bg-white text-black rounded-3xl px-3 py-2 text-sm font-medium hover:bg-white hover:text-black rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
-              @click="pushSignIn"
-            >
+              @click="pushSignIn">
               Sign in
             </button>
           </div>
