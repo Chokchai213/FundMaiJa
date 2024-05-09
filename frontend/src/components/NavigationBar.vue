@@ -1,6 +1,6 @@
 <script setup></script>
 <template>
-  <nav class="bg-green-700">
+  <nav class="bg-green-500">
     <div class="mx-auto">
       <div class="relative flex items-center justify-between px-4">
         <div class="flex items-center">
