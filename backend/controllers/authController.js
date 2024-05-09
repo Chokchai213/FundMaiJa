@@ -103,6 +103,8 @@ const SignIn = async (req, res) => {
     return res.status(200).json({
       message: "Sign in successfully",
       accessToken: newaccessToken,
+      username: username,
+      email: findUser.email,
     });
   } catch (err) {
     console.error("Error signing in:", err);
