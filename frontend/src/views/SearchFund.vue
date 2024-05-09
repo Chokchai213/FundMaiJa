@@ -4,7 +4,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
 
 <template>
   <div class="mx-auto max-w-3xl mt-8 flex flex-col items-center justify-center" v-if="!isLoading">
-    <div class="w-1/4 h-4/8 bg-green-500 text-white font-bold px-2 py-1 rounded-lg mb-4 text-center">
+    <div class="w-1/4 h-4/8  text-black font-bold px-2 py-1 rounded-lg mb-4 text-center text-xl">
       Search Fund
     </div>
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -81,30 +81,30 @@ import OverlayLoading from "../components/OverlayLoading.vue";
   <!-- favFund -->
   <div class="flex flex-col items-center justify-center mt-16" v-if="!isLoading">
     <div class="bg-gray-50 p-8 rounded-lg shadow-md w-full md:w-3/4 overflow-x-auto">
-      <div class="w-full h-4/8 bg-green-500 text-white font-bold px-2 py-1 rounded-lg mb-4 text-center">
+      <div class="w-full h-4/8  text-black font-bold px-2 py-1 rounded-lg mb-4 text-center text-xl">
         Favourite Fund
       </div>
-      <table class="w-full" id="customers">
+      <table class="w-full border-collapse border border-slate-400">
         <thead>
           <tr>
             <th
-              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider">
               Project ID
             </th>
             <th
-              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider">
               Project Name
             </th>
             <th
-              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider">
               Risk Spectrum
             </th>
             <th
-              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider">
               Factsheet URL
             </th>
             <th
-              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              class="border border-slate-300 px-6 py-3 bg-green-500 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider">
               Action
             </th>
           </tr>
@@ -112,20 +112,20 @@ import OverlayLoading from "../components/OverlayLoading.vue";
         <tbody>
           <!-- Loop through each favorite fund -->
           <tr v-for="(fav, key) in filterFunds" :key="key">
-            <td class="px-6 py-4 whitespace-no-wrap">{{ fav.proj_id }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap">
+            <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">{{ fav.proj_id }}</td>
+            <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
               <a :href="`/fund-detail/${fav.proj_id}`">
                 {{ fav.proj_name_en }}
               </a>
             </td>
-            <td class="px-6 py-4 whitespace-no-wrap">
+            <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
               {{ fav.risk_spectrum }}
             </td>
-            <td class="px-6 py-4 whitespace-no-wrap">
+            <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
               <a :href="fav.url_factsheet" target="_blank" rel="noopener noreferrer"
                 class="text-blue-500 hover:underline">{{ fav.url_factsheet }}</a>
             </td>
-            <td class="px-6 py-4 whitespace-no-wrap">
+            <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
               <button
                 class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs bg-amber-500 text-black shadow-md shadow-amber-500/20 hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
                 type="button" @click="onClickRemoveFromFav(fav)" v-if="fav.isFavorite">
