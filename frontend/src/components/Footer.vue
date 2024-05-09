@@ -1,6 +1,6 @@
 <template>
   <footer class="bg-green-500">
-    <div class="container mx-auto px-4 py-8 flex justify-between items-center">
+    <div class="container mx-auto px-4 py-8 flex justify-between items-top">
       <div>
         <h3 class="text-white text-2xl font-bold">FUNDMAIJA</h3>
       </div>
