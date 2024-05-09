@@ -2,8 +2,8 @@
 import OverlayLoading from "../components/OverlayLoading.vue";
 </script>
 <template>
-    <div class="flex justify-center mt-16">
-        <div class="flex flex-col items-center w-2/3">
+    <div class="flex justify-center mt-16 mb-16">
+        <div class="flex flex-col items-center w-2/4">
             <div class="flex flex-col px-4 sm:px-0 items-center ">
                 <h3 class="text-base font-semibold leading-7 text-gray-900">{{ Detail.proj_name_en }}</h3>
                 <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">{{ Detail.proj_name_th }}</p>
@@ -31,22 +31,25 @@ import OverlayLoading from "../components/OverlayLoading.vue";
                         </dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">About</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Fugiat ipsum ipsum
-                            deserunt
-                            culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum
-                            aliquip
-                            consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud
-                            pariatur mollit ad adipisicing reprehenderit deserunt qui eu.</dd>
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Management style</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{
+                            Detail.management_style
+                            }}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Attachments</dt>
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Investment policy description</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{
+                            Detail.investment_policy_desc }}</dd>
+                    </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Factsheet</dt>
                         <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                             <ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
                                 <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
                                     <div class="ml-4 flex-shrink-0">
-                                        <a href="#"
-                                            class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
+                                        <a :href="Detail.url_factsheet"
+                                            class="font-medium text-indigo-600 hover:text-indigo-500">{{
+                                                Detail.url_factsheet }}</a>
                                     </div>
                                 </li>
                             </ul>
