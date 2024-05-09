@@ -1,21 +1,22 @@
-<script setup>
-import { getCookie } from '../utils/CookieUtils';
-
-</script>
-
+<script setup></script>
 
 <template>
-  <p>SearchFund</p>
+  
 </template>
-  
-  <script>
-  import { getCookie } from '../utils/CookieUtils';
-    export default {
-  mounted(){
-      console.log(getCookie("accessToken"));
-    },
-  }
-  </script>
-  
-  <style>
-  </style>
+
+<script>
+export default {
+  data() {
+    return {
+    };
+  },
+  methods: {
+    
+  },
+  mounted() {
+
+  },
+};
+</script>
+
+<style></style>

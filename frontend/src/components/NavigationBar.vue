@@ -5,7 +5,7 @@
       <div class="relative flex items-center justify-between px-4">
         <div class="flex items-center">
           <div class="flex flex-shrink-0 items-center">
-            <a href="#" class="px-4 py-4">
+            <a href="/mainfeed" class="px-4 py-4">
               <h1 class="font-bold select-none text-2xl">FUNDMAIJA</h1>
             </a>
           </div>

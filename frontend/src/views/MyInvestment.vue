@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import { getCookie } from "../utils/CookieUtils";
 export default {
   data() {
     return {
@@ -73,7 +72,7 @@ export default {
     }
   },
   mounted() {
-    console.log(getCookie("accessToken"));
+    
   },
 };
 </script>
