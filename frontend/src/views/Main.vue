@@ -318,7 +318,7 @@ export default {
       ],
       activeIndex: 0,
       slides: [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17
       ],
       slideInterval: 5000,
     };
@@ -333,12 +333,15 @@ export default {
         // console.log(res.data);
         res.data.articles.forEach((article) => {
           // Push the values to respective arrays
-          this.news.push({
-            title: article.title,
-            urlToImage: article.urlToImage,
-            description: article.description,
-            url: article.url,
-          });
+          if (article.title != "[Removed]") {
+            console.log(article.title)
+            this.news.push({
+              title: article.title,
+              urlToImage: article.urlToImage,
+              description: article.description,
+              url: article.url,
+            });
+          }
         });
       })
       .finally(() => {
