@@ -25,6 +25,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
         </div>
         <div>
           <div class="relative">
+            <!-- Using English name to match user input -->
             <input
               class="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-200 cursor-pointer"
               id="searchname" placeholder="Search using name (EN)" v-model="searchNameEN">
@@ -38,6 +39,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
         </div>
         <div>
           <div class="relative">
+            <!-- Using type of fund to match user input -->
             <select
               class="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-200 cursor-pointer"
               id="fundtype" v-model="selectedType">
@@ -60,6 +62,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
         </div>
         <div>
           <div class="relative">
+            <!-- Using level of risk to match user input -->
             <select
               class="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-200 cursor-pointer"
               id="fundrisk" v-model="selectedRisk">
@@ -127,6 +130,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
               <a :href="fav.url_factsheet" target="_blank" rel="noopener noreferrer"
                 class="text-blue-500 hover:underline">{{ fav.url_factsheet }}</a>
             </td>
+            <!-- When star button has been clicked, the fund will be automatically add/remove to/from user favorite fund based on fav.isFavorite boolean value -->
             <td class="border border-slate-300 px-6 py-4 whitespace-no-wrap">
               <button
                 class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs bg-amber-500 text-black shadow-md shadow-amber-500/20 hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
@@ -169,6 +173,7 @@ export default {
     };
   },
   methods: {
+    // Add fund to user favortie fund in user collection
     onClickAddToFav(fav) {
       axios.post(`http://localhost:3000/fund/addfavfund/${getCookie("_id")}`,
         {
@@ -179,6 +184,7 @@ export default {
           console.log(err.response.data.message)
         })
     },
+    // Remove fund from user favorite fund in user collection
     onClickRemoveFromFav(fav) {
       axios
         .delete(
@@ -194,6 +200,7 @@ export default {
     }
   },
   computed: {
+    // Lookup function to filter the result by matching with user's input
     filterFunds() {
       if (!this.allFunds) {
         // Handle the case when allFunds is not initialized
@@ -224,6 +231,7 @@ export default {
 
     },
   },
+  // Query all funds to create options for user to choose and retrieve user information (favorite fund).
   mounted() {
     this.isLoading = true;
     axios

@@ -213,17 +213,16 @@ export default {
     };
   },
   mounted() {
+    // Send GET request to 3rd-party API. Then store in data.
     this.interval = setInterval(this.nextSlide, this.slideInterval);
     axios
       .get(
         `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${apiKey}`
       )
       .then((res) => {
-        // console.log(res.data);
         res.data.articles.forEach((article) => {
           // Push the values to respective arrays
           if (article.title != "[Removed]") {
-            console.log(article.title);
             this.news.push({
               title: article.title,
               urlToImage: article.urlToImage,
@@ -234,8 +233,9 @@ export default {
         });
       })
       .finally(() => {
+        // Every first object will be null value due to the behaviour of API response.
+        // So we have to remove the first object.
         this.news.shift();
-        console.log(this.news);
       });
   },
   beforeDestroy() {

@@ -15,7 +15,7 @@ export function setCookie(name, value, time){
     name+"=" + value + ";" + expires + ";path=/";
 }
 
-//clear all cookies = logout 😊😊😊😊😊😊
+//clear all cookies = logout 
 export function deleteAllCookies() {
   const cookies = document.cookie.split(";");
   for (let i = 0; i < cookies.length; i++) {
