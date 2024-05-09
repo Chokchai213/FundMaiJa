@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import OverlayLoading from "../components/OverlayLoading.vue";
+</script>
 
 <template>
   <div class="flex flex-col items-center justify-center mt-16">
@@ -21,7 +23,7 @@
             id="oldpassword"
             name="name"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500 mb-3"
-            disabled
+            v-model="oldPassword"
           />
         </div>
         <div>
@@ -33,6 +35,7 @@
             id="newpassword"
             name="newpassword"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500 mb-3"
+            v-model="newPassword"
           />
         </div>
         <div>
@@ -44,13 +47,14 @@
             id="newcpassword"
             name="newcpassword"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500 mb-3"
+            v-model="newcPassword"
           />
         </div>
         <div class="flex justify-center space-x-4">
           <button
             type="submit"
             class="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border border-gray-300 p-1"
-            @click="onClickSave"
+            @click="onClickChangePassword"
           >
             Save
           </button>
@@ -65,13 +69,19 @@
       </div>
     </div>
   </div>
+  <OverlayLoading :isLoading="isLoading" />
 </template>
 
 <script>
+import axios from "axios";
 import { getCookie } from "../utils/CookieUtils";
 export default {
   data() {
     return {
+      isLoading: false,
+      oldPassword : "",
+      newPassword : "",
+      newcPassword : ""
     };
   },
   methods: {
@@ -79,10 +89,28 @@ export default {
         this.$router.back();
     },
     onClickChangePassword(){
+      this.isLoading = true;
+      if(this.newPassword !== this.newcPassword){
+        alert("new password and confirm password is not the same");
+        this.isLoading = false;
+        return
+      }
+      axios.post(`http://localhost:3000/auth/change-pwd/${getCookie('username')}`,{
+          new_pass: this.newPassword,
+          old_pass: this.oldPassword,
+        })
+        .then((res) => {
+          alert(res.data.message)
+          this.isLoading = false;
+          this.$router.back();
+      }).catch((err) => {
+        this.isLoading = false;
+        alert(err.response.data.message)
+      })
     }
   },
   mounted() {
-    console.log(getCookie("accessToken"));
+    // console.log(getCookie("accessToken"));
   },
 };
 </script>

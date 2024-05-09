@@ -23,7 +23,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
             id="name"
             name="name"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500 mb-3"
-            v-model="this.username"
+            v-model="username"
             required=""
           />
         </div>
@@ -36,7 +36,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
             id="email"
             name="email"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500 mb-3"
-            v-model="this.email"
+            v-model="email"
             required=""
           />
         </div>
@@ -63,7 +63,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
 </template>
 
 <script>
-import { getCookie } from "../utils/CookieUtils";
+import { getCookie, setCookie } from "../utils/CookieUtils";
 import axios from "axios";
 export default {
   data() {
@@ -77,24 +77,20 @@ export default {
     onClickEdit(){
       this.isLoading = true;
       axios
-        .patch(`http://localhost:3000/user/edituser`, {
+        .patch(`http://localhost:3000/user/edituser/${getCookie("_id")}`, {
           username: this.username,
-          password: this.password,
+          email: this.email,
         })
-        .then((res) => {
+        .then(() => {
+          console.log('then')
           this.isLoading = false;
-          const token = res.data.accessToken;
-          const username = res.data.username;
-          const email = res.data.email;
-          setCookie("accessToken",token,12);
-          setCookie("username",username,12);
-          setCookie("email",email,12);
-          this.$router.push('/mainfeed');
+          setCookie("username",this.username,12);
+          setCookie("email",this.email,12);
+          alert("Edit Successfully");
         })
         .catch((err) => {
           this.isLoading = false;
           alert(err.response.data.message)
-          console.log("err :: ", err);
         });
     },
     onClickChangePassword(){

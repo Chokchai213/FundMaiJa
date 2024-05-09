@@ -6,18 +6,18 @@
         <div class="flex items-center">
           <div class="flex flex-shrink-0 items-center">
             <a href="/mainfeed" class="px-4 py-4">
-              <h1 class="font-bold select-none text-2xl">FUNDMAIJA</h1>
+              <h1 class="font-bold select-none text-2xl text-white">FUNDMAIJA</h1>
             </a>
           </div>
           <div class="sm:ml-6 sm:block">
             <div class="flex space-x-4">
               <a
               :href="'/myinvestment'"
-                class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                class=" text-white rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                 >My Investment</a>
               <a
                 href="/searchfund"
-                class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                class=" text-white rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                 >Search Fund</a>
             </div>
           </div>
@@ -37,6 +37,14 @@
               {{this.username}}
             </div>
           </div>
+          <div class="px-1">
+            <div
+              class="bg-black text-white rounded-3xl px-3 py-2 text-sm font-medium hover:bg-white hover:text-black rounded-md px-3 py-2 text-sm font-medium"
+              @click="onClickSignOut"
+            >
+              Sign out
+            </div>
+          </div>
         </div>
         <div class="relative flex items-center" v-else>
           <div class="mr-3">
@@ -49,13 +57,14 @@
             </button>
           </div>
         </div>
+        
       </div>
     </div>
   </nav>
 </template>
 
 <script>
-import { getCookie } from "../utils/CookieUtils";
+import { getCookie, deleteAllCookies } from "../utils/CookieUtils";
 export default {
   data() {
     return {
@@ -65,12 +74,15 @@ export default {
   },
   methods: {
     pushSignIn() {
-      console.log('signin')
       this.$router.push('/signin');
     },
+    onClickSignOut(){
+      deleteAllCookies();
+      window.location.reload();
+      this.$router.replace('/');
+    }
   },
   mounted() {
-    console.log(getCookie("username"))
     if (getCookie("accessToken")) {
       this.isLogin = true;
     }

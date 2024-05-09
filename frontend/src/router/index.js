@@ -83,9 +83,7 @@ router.beforeEach((to, from, next) => {
       next("/signin");
     }
   } else {
-    console.log("from.path :: ", from.path);
     if (from.path === "/signin") {
-      console.log("reload");
       window.location.reload();
     }
     next();
@@ -97,7 +95,6 @@ router.afterEach((to, from, next) => {
   if (from.path === "/signin" || from.path === "/signup") {
     window.location.reload();
   }
-  next();
 });
 
 export default router;
