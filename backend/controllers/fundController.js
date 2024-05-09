@@ -105,6 +105,7 @@ const getUrlFund = async (req, res) => {
   }
 };
 
+//update prepare data
 const updateFundDetail = async (req, res) => {
   try {
     const checkArr = ["PN", "AN", "AM", "BH", "SM", "OT", "PM"];

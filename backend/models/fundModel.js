@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//fund schema
 const fundSchema = new mongoose.Schema({
   proj_name_th: {
     type: String,

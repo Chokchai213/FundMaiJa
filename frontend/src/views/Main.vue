@@ -292,11 +292,10 @@
         </div>
       </div>
       <!-- Footer -->
-      <div class="mt-10 bottom-0 text-center">
-        <h4 class="text-sm font-semibold text-gray-600">&COPY; 2021 CORE-UI</h4>
-      </div>
     </div>
   </div>
+  <br />
+  <br />
 </template>
 
 <script>
@@ -317,9 +316,7 @@ export default {
         },
       ],
       activeIndex: 0,
-      slides: [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17
-      ],
+      slides: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
       slideInterval: 5000,
     };
   },
@@ -334,7 +331,7 @@ export default {
         res.data.articles.forEach((article) => {
           // Push the values to respective arrays
           if (article.title != "[Removed]") {
-            console.log(article.title)
+            console.log(article.title);
             this.news.push({
               title: article.title,
               urlToImage: article.urlToImage,
