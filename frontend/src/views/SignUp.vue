@@ -16,6 +16,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
           </h1>
           <form class="space-y-4 md:space-y-6" @submit.prevent="onSubmit">
             <div>
+              <!-- Username input box -->
               <label
                 for="username"
                 class="block mb-2 text-sm font-medium text-gray-900"
@@ -32,6 +33,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
               />
             </div>
             <div>
+              <!-- Email input box -->
               <label
                 for="email"
                 class="block mb-2 text-sm font-medium text-gray-900"
@@ -48,6 +50,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
               />
             </div>
             <div>
+              <!-- Password input box -->
               <label
                 for="password"
                 class="block mb-2 text-sm font-medium text-gray-900"
@@ -118,6 +121,7 @@ export default {
     },
   },
   mounted() {
+    // If user already sign in, then redirect to main feed
     if (getCookie("accessToken")) {
       this.$router.replace("/mainfeed");
     }
