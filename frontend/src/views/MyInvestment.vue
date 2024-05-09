@@ -8,7 +8,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
       class="bg-gray-50 p-8 rounded-lg shadow-md w-3/4 flex items-center justify-center flex flex-col"
     >
       <div
-        class="w-1/4 h-4/8 bg-green-500 text-black font-bold px-2 py-1 rounded-lg mb-4 text-center"
+        class="w-1/4 h-4/8 bg-green-500 text-white font-bold px-2 py-1 rounded-lg mb-4 text-center"
       >
         Contact
       </div>
@@ -66,7 +66,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
       class="bg-gray-50 p-8 rounded-lg shadow-md w-full md:w-3/4 overflow-x-auto"
     >
       <div
-        class="w-full h-4/8 bg-green-500 text-black font-bold px-2 py-1 rounded-lg mb-4 text-center"
+        class="w-full h-4/8 bg-green-500 text-white font-bold px-2 py-1 rounded-lg mb-4 text-center"
       >
         Favourite Fund
       </div>

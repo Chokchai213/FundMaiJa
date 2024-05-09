@@ -4,7 +4,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
 
 <template>
   <div class="mx-auto max-w-3xl mt-8 flex flex-col items-center justify-center" v-if="!isLoading">
-    <div class="w-1/4 h-4/8 bg-green-500 text-black font-bold px-2 py-1 rounded-lg mb-4 text-center">
+    <div class="w-1/4 h-4/8 bg-green-500 text-white font-bold px-2 py-1 rounded-lg mb-4 text-center">
       Search Fund
     </div>
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -81,7 +81,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
   <!-- favFund -->
   <div class="flex flex-col items-center justify-center mt-16" v-if="!isLoading">
     <div class="bg-gray-50 p-8 rounded-lg shadow-md w-full md:w-3/4 overflow-x-auto">
-      <div class="w-full h-4/8 bg-green-500 text-black font-bold px-2 py-1 rounded-lg mb-4 text-center">
+      <div class="w-full h-4/8 bg-green-500 text-white font-bold px-2 py-1 rounded-lg mb-4 text-center">
         Favourite Fund
       </div>
       <table class="w-full" id="customers">

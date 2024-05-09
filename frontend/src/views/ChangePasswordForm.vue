@@ -8,7 +8,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
       class="bg-gray-50 p-8 rounded-lg shadow-md w-3/4 flex items-center justify-center flex flex-col"
     >
       <div
-        class="w-1/4 h-4/8 bg-green-500 text-black font-bold px-2 py-1 rounded-lg mb-4 text-center"
+        class="w-1/4 h-4/8 bg-green-500 text-white font-bold px-2 py-1 rounded-lg mb-4 text-center"
       >
         Change Password
       </div>
@@ -79,35 +79,40 @@ export default {
   data() {
     return {
       isLoading: false,
-      oldPassword : "",
-      newPassword : "",
-      newcPassword : ""
+      oldPassword: "",
+      newPassword: "",
+      newcPassword: "",
     };
   },
   methods: {
-    onClickCancel(){
-        this.$router.back();
+    onClickCancel() {
+      this.$router.back();
     },
-    onClickChangePassword(){
+    onClickChangePassword() {
       this.isLoading = true;
-      if(this.newPassword !== this.newcPassword){
+      if (this.newPassword !== this.newcPassword) {
         alert("new password and confirm password is not the same");
         this.isLoading = false;
-        return
+        return;
       }
-      axios.post(`http://localhost:3000/auth/change-pwd/${getCookie('username')}`,{
-          new_pass: this.newPassword,
-          old_pass: this.oldPassword,
-        })
+      axios
+        .post(
+          `http://localhost:3000/auth/change-pwd/${getCookie("username")}`,
+          {
+            new_pass: this.newPassword,
+            old_pass: this.oldPassword,
+          }
+        )
         .then((res) => {
-          alert(res.data.message)
+          alert(res.data.message);
           this.isLoading = false;
           this.$router.back();
-      }).catch((err) => {
-        this.isLoading = false;
-        alert(err.response.data.message)
-      })
-    }
+        })
+        .catch((err) => {
+          this.isLoading = false;
+          alert(err.response.data.message);
+        });
+    },
   },
   mounted() {
     // console.log(getCookie("accessToken"));
