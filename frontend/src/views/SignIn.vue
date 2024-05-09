@@ -7,14 +7,6 @@ import OverlayLoading from "../components/OverlayLoading.vue";
     <div
       class="flex flex-col items-center justify-center px-4 py-2 mx-auto md:h-screen lg:py-0"
     >
-      <a
-        href="#"
-        class="flex items-center mb-6 text-2xl font-semibold text-gray-900"
-      >
-        <a href="#" class="px-4 py-2">
-          <h1 class="font-bold select-none text-2xl">FUNDMAIJA</h1>
-        </a>
-      </a>
       <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
           <h1
@@ -132,7 +124,7 @@ export default {
           axios
             .post(`http://localhost:3000/user/getuser/${username}`)
             .then((resGetUser) => {
-              setCookie("_id",resGetUser.data._id);
+              setCookie("_id", resGetUser.data._id);
               this.$router.push("/mainfeed");
             })
             .catch((errGetUser) => {
