@@ -82,17 +82,20 @@ const router = createRouter({
   history: routerHistory,
   routes,
 });
+
+//before redirecting to any path, first check if the path has requiresAuth; if so, check the accessToken.
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
     const token = getCookie("accessToken");
     if (token) {
-      next();
+      next(); //redirect to next path if user has accessToken.
     } else {
-      next("/signin");
+      next("/signin"); //if there's no accessToken, then go to sign in.
     }
   } else {
+    //redirect to next path if next path not requiresAuth.
     if (from.path === "/signin") {
-      window.location.reload();
+      window.location.reload(); //if user got redirected from signin reload to remount
     }
     next();
   }

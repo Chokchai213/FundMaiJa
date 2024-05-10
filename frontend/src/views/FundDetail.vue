@@ -2,6 +2,7 @@
 import OverlayLoading from "../components/OverlayLoading.vue";
 </script>
 <template>
+    <!--Fund's detail box-->
     <div class="flex justify-center mt-14 mb-12">
         <div class="bg-gray-50 p-8 rounded-lg shadow-md w-3/4 items-center justify-center flex flex-col">
             <div class="flex flex-col px-4 sm:px-0 items-center ">
@@ -14,13 +15,13 @@ import OverlayLoading from "../components/OverlayLoading.vue";
                         <dt class="text-sm font-medium leading-6 text-gray-900">Abbreviated name</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">{{
                             Detail.proj_abbr_name
-                            }}</dd>
+                        }}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Risk</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{
                             Detail.risk_spectrum
-                            }}</dd>
+                        }}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Type</dt>
@@ -38,7 +39,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
                         <dt class="text-sm font-medium leading-6 text-gray-900">Management style</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{
                             Detail.management_style
-                            }}</dd>
+                        }}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Investment policy description</dt>
@@ -56,6 +57,7 @@ import OverlayLoading from "../components/OverlayLoading.vue";
             </div>
         </div>
     </div>
+    <!--Go back button-->
     <div class="flex justify-center mb-20">
         <button @click="$router.back()"
             class="bg-gray-50 text-black rounded-xl shadow-md px-12 py-5 text-md hover:bg-gray-100 font-medium cursor-pointer">
@@ -73,17 +75,13 @@ export default {
             isLoading: false,
         };
     },
-    methods: {
-
-    },
     mounted() {
         this.isLoading = true;
+        //get fund's detail by proj_id param.
         axios
             .post(`http://localhost:3000/fund/getdetail/${this.$route.params.proj_id}`)
             .then((res) => {
-                // console.log(res.data);
                 this.Detail = res.data[0];
-                console.log(this.Detail);
                 this.isLoading = false;
             })
             .catch((error) => {
