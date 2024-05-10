@@ -53,3 +53,7 @@ Please create .env file in the root of backend folder before running our app. He
 - SCB_ID = C0000000239
 - EMAIL = "web.programming2024@gmail.com"
 - PASSWORD = "kzyo jeja kuue lbyq"
+
+## Note
+
+- running both backend and frontend: npm run dev
