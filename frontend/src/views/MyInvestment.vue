@@ -135,7 +135,7 @@ export default {
     onClickEdit() {
       this.isLoading = true;
       axios
-        .patch(`http://localhost:3000/user/edituser/${getCookie("_id")}`, {
+        .patch(`https://fundmaija-backend.onrender.com/user/edituser/${getCookie("_id")}`, {
           username: this.username,
           email: this.email,
         })
@@ -159,7 +159,7 @@ export default {
       console.log(proj_id);
       axios
         .delete(
-          `http://localhost:3000/fund/removefavfund/${getCookie("_id")}`,
+          `https://fundmaija-backend.onrender.com/fund/removefavfund/${getCookie("_id")}`,
           {
             data: { proj_id: proj_id },
           }
@@ -177,7 +177,7 @@ export default {
     onClickExportToCSV() {
       axios
         .get(
-          `http://localhost:3000/user/export-file/${getCookie("_id")}`,
+          `https://fundmaija-backend.onrender.com/user/export-file/${getCookie("_id")}`,
           null,
           {
             responseType: "blob",
@@ -214,7 +214,7 @@ export default {
   },
   mounted() {
     axios
-      .post(`http://localhost:3000/user/getuser/${this.username}`)
+      .post(`https://fundmaija-backend.onrender.com/user/getuser/${this.username}`)
       .then((res) => {
         // console.log(res.data);
         this.Users = res.data;

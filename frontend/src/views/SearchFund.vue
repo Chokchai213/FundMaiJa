@@ -175,7 +175,7 @@ export default {
   methods: {
     // Add fund to user favortie fund in user collection
     onClickAddToFav(fav) {
-      axios.post(`http://localhost:3000/fund/addfavfund/${getCookie("_id")}`,
+      axios.post(`https://fundmaija-backend.onrender.com/fund/addfavfund/${getCookie("_id")}`,
         {
           proj_id: fav.proj_id
         }).then(res => {
@@ -188,7 +188,7 @@ export default {
     onClickRemoveFromFav(fav) {
       axios
         .delete(
-          `http://localhost:3000/fund/removefavfund/${getCookie("_id")}`,
+          `https://fundmaija-backend.onrender.com/fund/removefavfund/${getCookie("_id")}`,
           {
             data: { proj_id: fav.proj_id },
           }
@@ -235,13 +235,13 @@ export default {
   mounted() {
     this.isLoading = true;
     axios
-      .get("http://localhost:3000/fund/getallfund")
+      .get("https://fundmaija-backend.onrender.com/fund/getallfund")
       .then((res) => {
         this.allFunds = res.data
         const uniqueRisk = new Set();
         const uniqueType = new Set();
         axios
-          .post(`http://localhost:3000/user/getuser/${getCookie("username")}`)
+          .post(`https://fundmaija-backend.onrender.com/user/getuser/${getCookie("username")}`)
           .then((resUser) => {
             this.Users = resUser.data;
             this.allFunds.forEach((fund, index) => {

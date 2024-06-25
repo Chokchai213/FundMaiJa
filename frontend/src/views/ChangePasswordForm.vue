@@ -82,7 +82,7 @@ export default {
       //if new password and confirm password is matched, then call the api endpoint for password changing.
       axios
         .post(
-          `http://localhost:3000/auth/change-pwd/${getCookie("username")}`,
+          `https://fundmaija-backend.onrender.com/auth/change-pwd/${getCookie("username")}`,
           {
             new_pass: this.newPassword,
             old_pass: this.oldPassword,

@@ -79,7 +79,7 @@ export default {
         this.isLoading = true;
         //get fund's detail by proj_id param.
         axios
-            .post(`http://localhost:3000/fund/getdetail/${this.$route.params.proj_id}`)
+            .post(`https://fundmaija-backend.onrender.com/fund/getdetail/${this.$route.params.proj_id}`)
             .then((res) => {
                 this.Detail = res.data[0];
                 this.isLoading = false;

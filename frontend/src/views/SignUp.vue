@@ -103,7 +103,7 @@ export default {
       }
       this.isLoading = true;
       axios
-        .post("http://localhost:3000/auth/signup", {
+        .post("https://fundmaija-backend.onrender.com/auth/signup", {
           username: this.username,
           password: this.password,
           email: this.email,

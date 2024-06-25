@@ -111,7 +111,7 @@ export default {
       }
       this.isLoading = true;
       axios
-        .post("http://localhost:3000/auth/signin", {
+        .post("https://fundmaija-backend.onrender.com/auth/signin", {
           username: this.username,
           password: this.password,
         })
@@ -124,7 +124,7 @@ export default {
           setCookie("username", username, 12);
           setCookie("email", email, 12);
           axios
-            .post(`http://localhost:3000/user/getuser/${username}`)
+            .post(`https://fundmaija-backend.onrender.com/user/getuser/${username}`)
             .then((resGetUser) => {
               setCookie("_id", resGetUser.data._id);
               this.$router.push("/mainfeed");

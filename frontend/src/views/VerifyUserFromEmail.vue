@@ -56,7 +56,7 @@ export default {
     this.isLoading = true;
     axios
       .post(
-        `http://localhost:3000/auth/verify-email/${this.$route.params.userId}/${this.$route.params.token}`
+        `https://fundmaija-backend.onrender.com/auth/verify-email/${this.$route.params.userId}/${this.$route.params.token}`
       )
       .then((res) => {
         res.status === 200 ? (this.isSuccess = true) : (this.isSuccess = false); //check if email is verified successfully.

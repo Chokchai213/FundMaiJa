@@ -52,7 +52,7 @@ const SignUp = async (req, res) => {
             replyTo: "noreply@gmail.com",
             to: `${saveUser.email}`,
             subject: "Account Verification Link",
-            text: `Hello, ${saveUser.username} Please verify your email by http://localhost:5000/verify-email/${saveUser.id}/${setToken.token} `,
+            text: `Hello, ${saveUser.username} Please verify your email by https://fundmaija.onrender.com/verify-email/${saveUser.id}/${setToken.token} `,
           });
         }
 
